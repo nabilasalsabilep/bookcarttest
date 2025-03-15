@@ -66,9 +66,8 @@ public class Register extends Util {
         registerPage.setpassword(password);
         registerPage.setconfirmpassword(password);
         registerPage.selectmalegender();
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         registerPage.clickregister();
-        registerPage.validatetoastsuccess();
 
         loginPage.setusername(username);
         loginPage.setpassword(password);

@@ -31,11 +31,11 @@ public class LoginPage {
     private WebElement registerbutton;
 
     //find input Username field
-    @FindBy(id="mat-input-0")
+    @FindBy(xpath = "//input[@formcontrolname='username']")
     private WebElement inputusername;
 
     //find input Password field
-    @FindBy(id="mat-input-1")
+    @FindBy(xpath = "//input[@formcontrolname='password']")
     private WebElement inputpassword;
 
     //find show password field

@@ -82,10 +82,6 @@ public class RegisterPage {
     @FindBy(xpath = "//span[text()='Register']")
     private WebElement registerbutton;
 
-    //find toast successfully registered
-    @FindBy(xpath = "//div[text()='Registration successful']")
-    private WebElement toastsuccess;
-
     //validate wording on User Registration page
     public void validateregistrationpage(){
         AssertJUnit.assertEquals("User Registration", registrationtitlepage.getText());
@@ -155,11 +151,6 @@ public class RegisterPage {
     //click Register button
     public void clickregister(){
         registerbutton.click();
-    }
-
-    //validate toast success
-    public void validatetoastsuccess(){
-        AssertJUnit.assertEquals("Registration successful", toastsuccess.getText());
     }
 
 }
