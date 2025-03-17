@@ -9,6 +9,7 @@
             <class name="TestCases.Login.Login"/>
             <class name="TestCases.SearchBook.SearchBook"/>
             <class name="TestCases.Cart.AddtoCart"/>
+            <class name="TestCases.Cart.Checkout"/>
         </classes>
     </test>
 </suite>
