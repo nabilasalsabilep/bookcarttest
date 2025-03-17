@@ -122,7 +122,7 @@ public class CartPage {
         firstdatadeleteicon.isDisplayed();
         AssertJUnit.assertEquals("Cart Total:", carttotallabel.getText());
         AssertJUnit.assertEquals(price, carttotaldata.getText());
-        AssertJUnit.assertEquals("Checkout", checkoutbutton.getText());
+        AssertJUnit.assertEquals("CheckOut", checkoutbutton.getText());
     }
 
     //click Checkout button
