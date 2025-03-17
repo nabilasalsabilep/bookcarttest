@@ -9,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.testng.AssertJUnit;
 
+import java.util.List;
+
 public class CartPage {
     WebDriver driver;
 
@@ -64,6 +66,10 @@ public class CartPage {
     //find first data Title
     @FindBy(xpath = "/html/body/app-root/div/app-shoppingcart/mat-card/mat-card-content[1]/table/tbody/tr[1]/td[2]/a")
     private WebElement firstdatatitle;
+
+    //find second data Title
+    @FindBy(xpath = "/html/body/app-root/div/app-shoppingcart/mat-card/mat-card-content[1]/table/tbody/tr[2]/td[2]/a")
+    private WebElement seconddatatitle;
 
     //find first data Price
     @FindBy(xpath = "/html/body/app-root/div/app-shoppingcart/mat-card/mat-card-content[1]/table/tbody/tr[1]/td[3]")

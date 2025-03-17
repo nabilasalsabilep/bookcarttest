@@ -1,5 +1,6 @@
 package TestCases.Cart;
 
+import ObjectRepository.BookDetail.BookDetailPage;
 import ObjectRepository.Cart.CartPage;
 import ObjectRepository.Header.HeaderPage;
 import ObjectRepository.Main.MainPage;
@@ -14,10 +15,9 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-public class AddtoCart extends Util {
+public class AddtoCartfromMainPage extends Util {
 
     public static WebDriver driver;
 

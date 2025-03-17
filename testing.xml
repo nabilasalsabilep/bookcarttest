@@ -8,7 +8,9 @@
             <class name="TestCases.Register.Register"/>
             <class name="TestCases.Login.Login"/>
             <class name="TestCases.SearchBook.SearchBook"/>
-            <class name="TestCases.Cart.AddtoCart"/>
+            <class name="TestCases.BookDetail.BookDetail"/>
+            <class name="TestCases.Cart.AddtoCartfromMainPage"/>
+            <class name="TestCases.Cart.AddtoCartfromDetailPage"/>
             <class name="TestCases.Cart.Checkout"/>
         </classes>
     </test>

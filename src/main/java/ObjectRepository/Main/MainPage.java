@@ -21,6 +21,10 @@ public class MainPage {
         PageFactory.initElements(new AjaxElementLocatorFactory((SearchContext) driver, 120), this);
     }
 
+    //find first book card
+    @FindBy(xpath = "/html/body/app-root/div/app-home/div/div[2]/div/div/app-book-card/mat-card/mat-card-content")
+    private WebElement bookcard;
+
     //find first book title
     @FindBy(xpath = "//div[@class='card-title my-2']")
     private WebElement firstbooktitle;
@@ -33,9 +37,19 @@ public class MainPage {
     @FindBy(xpath = "/html/body/app-root/div/app-home/div/div[2]/div/div[1]/app-book-card/mat-card/mat-card-content/app-addtocart/button/span[2]")
     private WebElement firstbookaddtocartbutton;
 
+    //click first book card
+    public void clickbookcard(){
+        bookcard.click();
+    }
+
     //get first book title
     public String getfirstbooktitle(){
         return firstbooktitle.getText();
+    }
+
+    //click first book title
+    public void clickfirstbook(){
+        firstbooktitle.click();
     }
 
     //get first book price
