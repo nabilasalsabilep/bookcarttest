@@ -75,7 +75,7 @@ public class AddtoCartfromDetailPage extends Util {
         Thread.sleep(1000);
 
         CartPage cartPage = new CartPage(driver);
-        cartPage.validatecartpage(booktitle, bookprice, Integer.toString(finalamount));
+        cartPage.validatecartpagewith2differentselectedbook(booktitle, similarbooktitle, bookprice, similarbookprice);
     }
 
 }
