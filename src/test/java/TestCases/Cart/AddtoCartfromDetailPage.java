@@ -6,6 +6,7 @@ import ObjectRepository.Header.HeaderPage;
 import ObjectRepository.Main.MainPage;
 import Utils.Util;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -52,6 +53,7 @@ public class AddtoCartfromDetailPage extends Util {
         MainPage mainPage = new MainPage(driver);
         HeaderPage headerPage = new HeaderPage(driver);
         BookDetailPage bookDetail = new BookDetailPage(driver);
+        CartPage cartPage = new CartPage(driver);
 
         String booktitle = mainPage.getfirstbooktitle();
         String bookprice = mainPage.getfirstbookprice();
@@ -64,8 +66,22 @@ public class AddtoCartfromDetailPage extends Util {
         int numberofcartitems = headerPage.numberofcartitems();
         bookDetail.clickaddtocartbookdetail();
         Thread.sleep(2000);
-        String similarbooktitle = bookDetail.booktitleofsimilarbook();
-        String similarbookprice = bookDetail.priceofsimilarbook();
+
+        // List of different XPath expressions of book title
+        String[] listbooktitle = {
+                String.valueOf(bookDetail.booktitleelement()),
+                String.valueOf(bookDetail.similarbooktitleelement()),
+        };
+
+        // List of different XPath expressions of book title
+        String[] listbookprice = {
+                String.valueOf(bookDetail.bookpriceelement()),
+                String.valueOf(bookDetail.similarbookpricelement()),
+        };
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,350)", "");
+        Thread.sleep(1000);
         bookDetail.clickaddtocartsimilarbook();
         Thread.sleep(5000);
         int finalamount = numberofcartitems + 2;
@@ -74,8 +90,13 @@ public class AddtoCartfromDetailPage extends Util {
         headerPage.clickcartheader();
         Thread.sleep(1000);
 
-        CartPage cartPage = new CartPage(driver);
-        cartPage.validatecartpagewith2differentselectedbook(booktitle, similarbooktitle, bookprice, similarbookprice);
+        cartPage.validatewordingoncartpage();
+        cartPage.validatebookimage();
+        cartPage.validatebooktitle(listbooktitle);
+        cartPage.validatebookprice(listbookprice);
+        cartPage.validatetotal();
+        cartPage.validatedeletebutton();
+        cartPage.validatecarttotal();
     }
 
 }

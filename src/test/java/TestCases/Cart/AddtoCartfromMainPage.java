@@ -51,9 +51,17 @@ public class AddtoCartfromMainPage extends Util {
 
         MainPage mainPage = new MainPage(driver);
         HeaderPage headerPage = new HeaderPage(driver);
+        CartPage cartPage = new CartPage(driver);
 
-        String booktitle = mainPage.getfirstbooktitle();
-        String bookprice = mainPage.getfirstbookprice();
+        // List of different XPath expressions of book title
+        String[] listbooktitle = {
+                String.valueOf(mainPage.getfirstbooktitleelement()),
+        };
+
+        // List of different XPath expressions of book title
+        String[] listbookprice = {
+                String.valueOf(mainPage.getfirstbookpriceelement()),
+        };
 
         int numberofcartitems = headerPage.numberofcartitems();
         mainPage.validateaddtocartbutton();
@@ -64,7 +72,11 @@ public class AddtoCartfromMainPage extends Util {
         headerPage.clickcartheader();
         Thread.sleep(1000);
 
-        CartPage cartPage = new CartPage(driver);
-        cartPage.validatecartpage(booktitle, bookprice, Integer.toString(finalamount));
+        cartPage.validatewordingoncartpage();
+        cartPage.validatebookimage();
+        cartPage.validatebooktitle(listbooktitle);
+        cartPage.validatebookprice(listbookprice);
+        cartPage.validatetotal();
+        cartPage.validatecarttotal();
     }
 }

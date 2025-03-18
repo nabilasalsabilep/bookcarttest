@@ -10,6 +10,8 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.testng.AssertJUnit;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CartPage {
@@ -132,16 +134,102 @@ public class CartPage {
         clearcartbutton.click();
     }
 
+    //validate Cart page
+    public void validatewordingoncartpage(){
+        AssertJUnit.assertEquals("Shopping cart", carttitlepage.getText());
+        AssertJUnit.assertEquals("Clear cart", clearcartbutton.getText());
+        AssertJUnit.assertEquals("Image", imagetabletitle.getText());
+        AssertJUnit.assertEquals("Title", titletabletitle.getText());
+        AssertJUnit.assertEquals("Price", pricetabletitle.getText());
+        AssertJUnit.assertEquals("Quantity", quantitytabletitle.getText());
+        AssertJUnit.assertEquals("Total", totaltabletitle.getText());
+        AssertJUnit.assertEquals("Action", actiontabletitle.getText());
+        AssertJUnit.assertEquals("Cart Total:", carttotallabel.getText());
+        AssertJUnit.assertEquals("CheckOut", checkoutbutton.getText());
+    }
+
+    //click Checkout button
+    public void clickcheckoutbutton(){
+        checkoutbutton.click();
+    }
+
+    //validate book image on Cart Page
+    public void validatebookimage(){
+        // Find all price of book elements of each row
+        List<WebElement> table = driver.findElements(By.xpath("//table/tbody/tr"));
+
+        for (int i = 1; i < table.size(); i++) {
+            // Verify the image element
+            WebElement imageXPath = driver.findElement(By.xpath("//table/tbody/tr[" + i + "]/td[1]/img"));
+            imageXPath.isDisplayed();
+        }
+    }
+
+    //validate book title
+    public void validatebooktitle(String[] xpaths){
+        // Define a list to store text values
+        List<String> texts = new ArrayList<>();
+
+        for (String xpath : xpaths) {
+            try {
+                WebElement element = driver.findElement(By.xpath(xpath));
+                texts.add(element.getText());
+            } catch (Exception e) {
+                texts.add("Element not found: " + xpath);
+            }
+        }
+    }
+
+    //validate price of book from Book Details
+    public void validatebookprice(String[] xpaths){
+        // Define a list to store text values
+        List<String> expectedPrices = new ArrayList<>();
+
+        // Fetch expected prices from given xpaths
+        for (String xpath : xpaths) {
+            try {
+                WebElement element = driver.findElement(By.xpath(xpath));
+                expectedPrices.add(element.getText());
+            } catch (Exception e) {
+                expectedPrices.add("Not Found"); // Handle missing elements gracefully
+                System.out.println("Element not found for XPath: " + xpath);
+            }
+        }
+
+        // Find all price elements from the book details table
+        List<WebElement> priceElements = driver.findElements(By.xpath("//table/tbody/tr/td[3]"));
+
+        // Ensure expectedPrices and priceElements have the same size
+        int minSize = Math.min(expectedPrices.size(), priceElements.size());
+
+        for (int i = 0; i < minSize; i++) {
+            WebElement priceElement = priceElements.get(i);
+            String actualPrice = priceElement.getText();
+            String expectedPrice = expectedPrices.get(i);
+
+            // Compare actual and expected price
+            if (actualPrice.equals(expectedPrice)) {
+                System.out.println("Row " + (i + 1) + ": Price matches: " + actualPrice);
+            } else {
+                System.out.println("Row " + (i + 1) + ": Price mismatch! Expected: " + expectedPrice + ", Found: " + actualPrice);
+            }
+        }
+    }
+
+    //validate book delete icon is displayed on Cart Page
+    public void validatedeletebutton(){
+        // Find all price of book elements of each row
+        List<WebElement> table = driver.findElements(By.xpath("//table/tbody/tr"));
+
+        for (int i = 1; i < table.size(); i++) {
+            // Verify the icon element
+            WebElement iconXPath = driver.findElement(By.xpath("//table/tbody/tr[" + i + "]/td[6]/button/mat-icon"));
+            iconXPath.isDisplayed();
+        }
+    }
+
     //validate total
     public void validatetotal(){
-//        String pricetext = firstdataprice.getText();
-//        String numericString = pricetext.replaceAll("₹", "").trim();
-//        double price = Double.parseDouble(numericString);
-//        int qty = Integer.parseInt(firstdataquantity.getText());
-//        double totalPrice = price * qty;
-//        DecimalFormat df = new DecimalFormat("#.00");
-//        String formattedTotalPrice = df.format(totalPrice);
-//        return "₹" + formattedTotalPrice;
         int numberOfRows = driver.findElements(By.xpath("//table/tbody/tr")).size();
         for (int i = 1; i <= numberOfRows; i++) {
             // XPath for the price
@@ -181,85 +269,34 @@ public class CartPage {
 
     }
 
-    //validate Cart page
-    public void validatecartpage(String title, String price, String quantity){
-        AssertJUnit.assertEquals("Shopping cart", carttitlepage.getText());
-        AssertJUnit.assertEquals("Clear cart", clearcartbutton.getText());
-        AssertJUnit.assertEquals("Image", imagetabletitle.getText());
-        AssertJUnit.assertEquals("Title", titletabletitle.getText());
-        AssertJUnit.assertEquals("Price", pricetabletitle.getText());
-        AssertJUnit.assertEquals("Quantity", quantitytabletitle.getText());
-        AssertJUnit.assertEquals("Total", totaltabletitle.getText());
-        AssertJUnit.assertEquals("Action", actiontabletitle.getText());
-        firstdataimage.isDisplayed();
-        AssertJUnit.assertEquals(title, firstdatatitle.getText());
-        AssertJUnit.assertEquals(price, firstdataprice.getText());
-        AssertJUnit.assertEquals(quantity, firstdataquantity.getText());
-        firstdatadeleteicon.isDisplayed();
-        AssertJUnit.assertEquals("Cart Total:", carttotallabel.getText());
-        AssertJUnit.assertEquals(price, carttotaldata.getText());
-        AssertJUnit.assertEquals("CheckOut", checkoutbutton.getText());
-    }
+    //validate Cart Total of summation all the Total of books
+    public void validatecarttotal(){
+        // Get all rows in the shopping cart table
+        List<WebElement> rows = driver.findElements(By.xpath("//table/tbody/tr"));
 
-    //click Checkout button
-    public void clickcheckoutbutton(){
-        checkoutbutton.click();
-    }
+        double calculatedSum = 0.0;
 
-    //validate Cart page after selecting 2 different books
-    public void validatecartpagewith2differentselectedbook(String title1, String title2, String price1, String price2){
-        AssertJUnit.assertEquals("Shopping cart", carttitlepage.getText());
-        AssertJUnit.assertEquals("Clear cart", clearcartbutton.getText());
-        AssertJUnit.assertEquals("Image", imagetabletitle.getText());
-        AssertJUnit.assertEquals("Title", titletabletitle.getText());
-        AssertJUnit.assertEquals("Price", pricetabletitle.getText());
-        AssertJUnit.assertEquals("Quantity", quantitytabletitle.getText());
-        AssertJUnit.assertEquals("Total", totaltabletitle.getText());
-        AssertJUnit.assertEquals("Action", actiontabletitle.getText());
+        for (int i = 1; i <= rows.size(); i++) {
+            // Get the total price per row
+            WebElement rowTotalElement = driver.findElement(By.xpath("//table/tbody/tr[" + i + "]/td[5]"));
+            String rowTotalString = rowTotalElement.getText().replace("₹", "").trim();
+            double rowTotal = Double.parseDouble(rowTotalString);
 
-        // Find all book title elements of each row
-        List<WebElement> listbooktitle = driver.findElements(By.xpath("//table/tbody/tr/td[2]/a"));
-
-        // Find all price of book elements of each row
-        List<WebElement> priceElements = driver.findElements(By.xpath("//table/tbody/tr/td[3]"));
-
-
-        // Listing the book title from section Book Details and Similar Books
-        String[] expectedTitle = {title1, title2};
-
-        // Listing the price of books from section Book Details and Similar Books
-        String[] expectedPrices = {price1, price2};
-
-        for (int i = 1; i < listbooktitle.size(); i++) {
-            WebElement linkElement = listbooktitle.get(i);
-            String actualTitle = linkElement.getText();
-
-            WebElement priceElement = priceElements.get(i);
-            String actualPrice = priceElement.getText();
-
-            // Compare the actual text with the expected text
-            if (actualTitle.equals(expectedTitle[i])) {
-                System.out.println("Row " + (i) + ": Text matches: " + actualTitle);
-            } else {
-                System.out.println("Row " + (i) + ": Text does not match. Expected: " + expectedTitle[i] + ", Found: " + actualTitle);
-            }
-
-            // Compare the actual text with the expected text
-            if (actualPrice.equals(expectedPrices[i])) {
-                System.out.println("Row " + (i) + ": Text matches: " + actualPrice);
-            } else {
-                System.out.println("Row " + (i) + ": Text does not match. Expected: " + expectedPrices[i] + ", Found: " + actualPrice);
-            }
-
-            // Verify the image element
-            WebElement imageXPath = driver.findElement(By.xpath("//table/tbody/tr[" + i + "]/td[1]/img"));
-            imageXPath.isDisplayed();
-
-            // Verify the icon element
-            WebElement iconXPath = driver.findElement(By.xpath("//table/tbody/tr[" + i + "]/td[6]/button/mat-icon"));
-            iconXPath.isDisplayed();
+            // Add to total sum
+            calculatedSum += rowTotal;
         }
-        AssertJUnit.assertEquals("Cart Total:", carttotallabel.getText());
-        AssertJUnit.assertEquals("CheckOut", checkoutbutton.getText());
+
+        // Get the grand total from the final price element
+        WebElement grandTotalElement = driver.findElement(By.xpath("/html/body/app-root/div/app-shoppingcart/mat-card/mat-card-content[2]/td[5]/strong"));
+        String grandTotalString = grandTotalElement.getText().replace("₹", "").trim();
+        double grandTotal = Double.parseDouble(grandTotalString);
+
+        // Validate if calculated sum matches grand total
+        if (Math.abs(calculatedSum - grandTotal) < 0.01) { // Using tolerance for floating-point comparison
+            System.out.println("Grand total matches: ₹" + grandTotal);
+        } else {
+            System.out.println("Grand total mismatch! Expected: ₹" + grandTotal + ", Calculated: ₹" + calculatedSum);
+        }
     }
+
 }

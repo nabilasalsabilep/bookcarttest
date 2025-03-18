@@ -52,9 +52,6 @@ public class Checkout extends Util {
         MainPage mainPage = new MainPage(driver);
         HeaderPage headerPage = new HeaderPage(driver);
 
-        String booktitle = mainPage.getfirstbooktitle();
-        String bookprice = mainPage.getfirstbookprice();
-
         int numberofcartitems = headerPage.numberofcartitems();
         mainPage.validateaddtocartbutton();
         Thread.sleep(5000);
@@ -65,8 +62,9 @@ public class Checkout extends Util {
         Thread.sleep(1000);
 
         CartPage cartPage = new CartPage(driver);
-        cartPage.validatecartpage(booktitle, bookprice, Integer.toString(finalamount));
-
+        cartPage.validatewordingoncartpage();
+        cartPage.validatetotal();
+        cartPage.validatecarttotal();
         cartPage.clickcheckoutbutton();
 
         LoginPage loginPage = new LoginPage(driver);

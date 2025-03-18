@@ -1,15 +1,12 @@
 package ObjectRepository.BookDetail;
 
-import com.beust.ah.A;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.devtools.v85.page.Page;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.testng.AssertJUnit;
-import org.testng.annotations.Test;
 
 public class BookDetailPage {
 
@@ -97,6 +94,11 @@ public class BookDetailPage {
         addtocartbutton.click();
     }
 
+    //get element title of Book Details
+    public WebElement booktitleelement(){
+        return booktitleonbookdetail;
+    }
+
     //get text of book title on Book Details
     public String booktitleonbookdetail(){
         return booktitleonbookdetail.getText();
@@ -112,14 +114,29 @@ public class BookDetailPage {
         return categoryonbookdetail.getText();
     }
 
+    //get element price of Book Details
+    public WebElement bookpriceelement(){
+        return priceofbookdetails;
+    }
+
     //get text of price on Book Details
     public String priceofbookdetail(){
         return priceofbookdetails.getText();
     }
 
+    //get element title of Similar Books
+    public WebElement similarbooktitleelement(){
+        return booktitleofsimilarbook;
+    }
+
     //get text of first book title on Similar Books
     public String booktitleofsimilarbook(){
         return booktitleofsimilarbook.getText();
+    }
+
+    //get element price of Similar Book
+    public WebElement similarbookpricelement(){
+        return bookpriceofsimilarbook;
     }
 
     //get text price of first book on Similar Books

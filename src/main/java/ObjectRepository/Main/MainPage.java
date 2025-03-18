@@ -42,6 +42,11 @@ public class MainPage {
         bookcard.click();
     }
 
+    //get first book title element
+    public WebElement getfirstbooktitleelement(){
+        return firstbooktitle;
+    }
+
     //get first book title
     public String getfirstbooktitle(){
         return firstbooktitle.getText();
@@ -50,6 +55,11 @@ public class MainPage {
     //click first book title
     public void clickfirstbook(){
         firstbooktitle.click();
+    }
+
+    //get first book title element
+    public WebElement getfirstbookpriceelement(){
+        return firstbookprice;
     }
 
     //get first book price
